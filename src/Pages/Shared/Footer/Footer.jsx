@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <>
-      <footer className="bg-neutral-900 text-white">
+      <footer className="text-white bg-neutral-900">
         <div className=" bg-slate-900 pt-9">
           <div className="w-11/12 xl:w-10/12 mx-auto max-w-[1700px]">
             <div className="flex flex-col justify-between md:flex-row">
@@ -19,18 +19,18 @@ const Footer = () => {
                   delivery. Fresh, delicious, and hassle-free dining for all
                   university students!
                 </p>
-                <div className="flex flex-row items-center gap-4 text-3xl justify-start">
+                <div className="flex flex-row items-center justify-start gap-4 text-3xl">
                   <a
                     href="https://www.facebook.com/ataullah0"
                     target="_blank"
-                    className="hover:scale-125 rounded-full p-1 hover:text-white duration-150 text-4xl"
+                    className="p-1 text-4xl duration-150 rounded-full hover:scale-125 hover:text-white"
                   >
                     <FaFacebook />
                   </a>
                   <a
                     href="https://twitter.com/dev_ataullah"
                     target="_blank"
-                    className="hover:scale-125 rounded-full p-1 hover:text-white duration-150"
+                    className="p-1 duration-150 rounded-full hover:scale-125 hover:text-white"
                   >
                     <BsTwitterX />
                   </a>
@@ -38,14 +38,14 @@ const Footer = () => {
                   <a
                     href="https://www.linkedin.com/in/md-ataullah/"
                     target="_blank"
-                    className="hover:scale-125 rounded-full p-1 hover:text-white duration-150"
+                    className="p-1 duration-150 rounded-full hover:scale-125 hover:text-white"
                   >
                     <BsLinkedin />
                   </a>
                   <a
                     href="https://www.instagram.com/ataullah.info/"
                     target="_blank"
-                    className="hover:scale-125 rounded-full p-1 hover:text-white duration-150"
+                    className="p-1 duration-150 rounded-full hover:scale-125 hover:text-white"
                   >
                     <BsInstagram />
                   </a>
@@ -191,15 +191,15 @@ const Footer = () => {
                     </li>
                   </ul>
                 </div>
-                <div className="mt-6 flex flex-col gap-4 sm:mt-0">
+                <div className="flex flex-col gap-4 mt-6 sm:mt-0">
                   <p className="text-deutziawhite font-inter text-[18px] font-medium">
                     Download the app
                   </p>
-                  <div className="flex gap-4 flex-col">
+                  <div className="flex flex-col gap-4">
                     <a
                       target="_blank"
                       href="#"
-                      className="text-4xl flex items-center gap-2"
+                      className="flex items-center gap-2 text-4xl"
                     >
                       <GrAppleAppStore />
                       <p className="text-xl"> AppleAppStore</p>
@@ -207,7 +207,7 @@ const Footer = () => {
                     <a
                       target="_blank"
                       href="#"
-                      className="text-4xl flex items-center gap-2"
+                      className="flex items-center gap-2 text-4xl"
                     >
                       <IoLogoGooglePlaystore />
                       <p className="text-xl"> GooglePlaystore</p>
@@ -222,9 +222,9 @@ const Footer = () => {
                 Copyright © 2024 - All right reserved by{" "}
                 <a
                   href="https://www.linkedin.com/in/md-ataullah/"
-                  className="text-pink-500 italic font-semibold tracking-wide"
+                  className="italic font-semibold tracking-wide text-pink-500"
                 >
-                  Md Ataullah
+                  Farhan Mazumder
                 </a>
               </p>
             </div>
