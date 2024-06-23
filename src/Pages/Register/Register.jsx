@@ -1,143 +1,186 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
-import Swal from "sweetalert2";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ImSpinner9 } from "react-icons/im";
-import { FcGoogle } from "react-icons/fc";
-import toast from "react-hot-toast";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
-import useAuth from "../../hooks/useAuth";
-import { imageUpload } from "../Shared/utils/imageUpload";
-import auth from "../../firebase/firebase.config";
+import axios from 'axios';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { FaEye, FaEyeSlash, FaGithub } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import { Link, useNavigate } from 'react-router-dom';
+import { ImSpinner9 } from 'react-icons/im';
+import { FcGoogle } from 'react-icons/fc';
+import Loding from '../Loding/Loding';
+import useAuth from '../../Hooks/useAuth';
+import { useMutation } from '@tanstack/react-query';
+import useAxiosPub from '../../Hooks/useAxiosPub';
+// import useAxiosSec from '../../Hooks/useAxiosSec';
 
 export default function Register() {
-  const isLoading = false;
-  const {
-    createUser,
-    updateUserProfile,
-    setUser,
-    user,
-    githubLogin,
-    googleLogin,
-  } = useAuth();
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const axiosPublic = useAxiosPublic();
-
+  const axioss = useAxiosPub();
+  // const axiosss = useAxiosSec();
   const [errPass, setErrPass] = useState(false);
   const [imgErr, setImgErr] = useState(null);
   const [eye, setEye] = useState(false);
+  const naviget = useNavigate();
 
+  const { mutateAsync } = useMutation({
+    mutationFn: async ({ users }) => {
+      const { data } = await axioss.post('/new-user', users);
+      console.log(data);
+    },
+  });
+  // const { mutateAsync: mutateAsyncJwt } = useMutation({
+  //   mutationFn: async ({ userEmail }) => {
+  //     const { data } = await axiosss.post('/jwt', userEmail);
+  //     console.log(data);
+  //   },
+  // });
+
+  const {
+    emlPassRegister,
+    gitHubLogin,
+    googleLogin,
+    userDta,
+    profileUpdate,
+    setLoading,
+    isLoading,
+  } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-
-  const formSubmit = async (data) => {
-    // console.log(data);
+  const onSubmit = async (data) => {
     setImgErr(false);
     setErrPass(false);
-    const { name, photo, email, password, confirmPassword } = data;
-    if (password !== confirmPassword) {
+    if (data.Password !== data.Confirm_Password) {
       setErrPass(true);
       return;
     }
-    if (photo.name === "" || photo.size === 0) {
+    const photo = data.photo[0];
+    if (photo.name === '' || photo.size === 0) {
       setImgErr(true);
       return;
     }
+    const name = data.Name;
+    const email = data.Email;
+    const password = data.Password;
 
-    const imageFile = photo[0];
+    const fromImg = new FormData();
+    fromImg.append('image', photo);
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`,
+        fromImg
+      );
+      const imgUrl = data.data.display_url;
+      // const allDta = { name, email, password, imgUrl };
+      // console.log(allDta);
+      const result = await emlPassRegister(email, password);
+      const user = result.user;
 
-    const image = await imageUpload(imageFile);
-    // console.log(image);
-    createUser(email, password)
-      .then((result) => {
-        const user = result.user;
-        toast.success("Account created! Welcome!");
-        navigate(location?.state ? location?.state : "/");
-        //update profile
-        if (image) {
-          updateUserProfile(auth.currentUser, {
-            displayName: name,
-            photoURL: image,
-          })
-            .then(() => {
-              setUser({ ...user, displayName: name, photoURL: image });
-              //send user info to the db start ==========================
-              const userInfo = {
-                name: user?.displayName,
-                email: user?.email,
-                role: "User",
-                photo: user?.photoURL,
-                badge: "Bronze",
-              };
-              // console.log(userInfo);
-              axiosPublic.post("/users", userInfo).then(() => {
-                // console.log('from auth',res);
-              });
-              //send user info to the db end ==========================
-            })
-            .catch(() => {});
-        }
-      })
-      .catch((error) => toast.error(error?.message));
+      // Update Profile
+      await profileUpdate(name, imgUrl);
+      Swal.fire({
+        title: 'Good job!',
+        text: 'Your account has been successfully created. Please Login Now.',
+        icon: 'success',
+      });
 
-    reset();
+      const userName = user.displayName;
+      const userEmail = user.email;
+      const userPhoto = user.photoURL;
+      const role = 'user';
+      const badge = 'Bronze';
+      const users = {
+        userName,
+        userEmail,
+        userPhoto,
+        role,
+        badge,
+      };
+      await mutateAsync({ users });
+      // await mutateAsyncJwt({ userEmail });
+
+      reset();
+      // naviget('/login');
+      naviget(location?.state ? location.state : '/');
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+      Swal.fire({
+        title: 'Oops...!',
+        text: `Sorry, your account could not be Created ! "${error.message}"`,
+        icon: 'error',
+      });
+    }
+    // reset();
   };
+  // console.log(errors);
 
+  // all Social Login
   const socialLogin = (socialLogin) => {
     socialLogin()
-      .then((result) => {
-        navigate(location?.state ? location?.state : "/");
-        toast.success("Login Successfull.");
+      .then(async (result) => {
         const user = result.user;
-        const name = user?.displayName;
-        const email = user?.email;
-        const role = "User";
-        const photo = user?.photoURL;
-        const badge = "Bronze";
 
-        const userInfo = {
-          name,
-          email,
-          photo,
+        const userName = user.displayName;
+        const userEmail = user.email;
+        const userPhoto = user.photoURL;
+        const role = 'user';
+        const badge = 'Bronze';
+        const users = {
+          userName,
+          userEmail,
+          userPhoto,
           role,
           badge,
         };
+        await mutateAsync({ users });
 
-        axiosPublic.post("/users", userInfo).then(() => {});
-        //send user info to the db end ==========================
+        naviget(location?.state ? location.state : '/');
+        console.log(user);
+        Swal.fire({
+          title: 'Good job!',
+          text: 'Your account has been successfully logged in.',
+          icon: 'success',
+        });
       })
       .catch((error) => {
-        toast.error(error?.message);
+        const errorMessage = error.message;
+        setLoading(false);
+        console.log(errorMessage);
+        Swal.fire({
+          title: 'Oops...!',
+          text: `Sorry, your account could not be Login ! "${errorMessage.message}"`,
+          icon: 'error',
+        });
       });
   };
 
+  if (userDta) {
+    naviget('/');
+    return <Loding />;
+  }
   return (
-    <div className="min-h-screen text-white bg-slate-800">
-      <div className="w-10/12 py-10 mx-auto">
-        <h1 className="pt-10 pb-8 font-mono text-3xl font-bold text-center underline sm:text-4xl">
+    <div className="bg-slate-800 text-white min-h-screen">
+      <div className="w-10/12 mx-auto py-10">
+        <h1 className="text-center pt-10 pb-8 text-3xl underline sm:text-4xl font-bold font-mono">
           SignUp
         </h1>
         <div className="w-full md:w-[500px] mx-auto">
           <form
-            onSubmit={handleSubmit(formSubmit)}
+            onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-5"
           >
             <div>
               <input
-                className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
+                className="w-full bg-transparent shadow-md shadow-slate-500 px-3 py-2 border rounded"
                 type="text"
                 placeholder="Name"
-                {...register("name", { required: true, maxLength: 20 })}
+                {...register('Name', { required: true, maxLength: 20 })}
               />
 
-              {errors.name && (
+              {errors.Name && (
                 <span className="text-red-600">Please Input Your Name</span>
               )}
             </div>
@@ -151,11 +194,11 @@ export default function Register() {
                 </label>
                 <input
                   id="img"
-                  className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500 pl-9"
+                  className="w-full bg-transparent shadow-md shadow-slate-500 px-3 py-2 border rounded pl-9"
                   type="file"
                   accept="image/*"
                   placeholder="Name"
-                  {...register("photo", { required: true })}
+                  {...register('photo', { required: true })}
                 />
               </div>
               {errors.photo && (
@@ -167,24 +210,24 @@ export default function Register() {
             </div>
             <div>
               <input
-                className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
+                className="w-full bg-transparent shadow-md shadow-slate-500 px-3 py-2 border rounded"
                 type="email"
                 placeholder="Email"
-                {...register("email", {
+                {...register('Email', {
                   required: true,
                   pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                 })}
               />
-              {errors.email?.type === "required" && (
+              {errors.Email?.type === 'required' && (
                 <p className="text-red-600">Please Input Your Email.</p>
               )}
-              {errors.email?.type === "pattern" && (
+              {errors.Email?.type === 'pattern' && (
                 <p className="text-red-600">Invalid Email</p>
               )}
             </div>
             <div>
               <div className="relative">
-                <span className="absolute text-xl -translate-y-1/2 cursor-pointer right-3 top-1/2">
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xl cursor-pointer">
                   {eye ? (
                     <span onClick={() => setEye(!eye)}>
                       <FaEyeSlash />
@@ -196,10 +239,10 @@ export default function Register() {
                   )}
                 </span>
                 <input
-                  className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
-                  type={eye ? "text" : "password"}
+                  className="w-full bg-transparent shadow-md shadow-slate-500 px-3 py-2 border rounded"
+                  type={eye ? 'text' : 'password'}
                   placeholder="Password"
-                  {...register("password", {
+                  {...register('Password', {
                     required: true,
                     max: 20,
                     min: 6,
@@ -207,16 +250,16 @@ export default function Register() {
                   })}
                 />
               </div>
-              {errors.password?.type === "required" && (
+              {errors.Password?.type === 'required' && (
                 <p className="text-red-600">Please Input a Password.</p>
               )}
-              {errors.password?.type === "min" && (
+              {errors.Password?.type === 'min' && (
                 <p className="text-red-600">Password must be 6 word</p>
               )}
-              {errors.password?.type === "max" && (
+              {errors.Password?.type === 'max' && (
                 <p className="text-red-600">Password must be less 20 word</p>
               )}
-              {errors.password?.type === "pattern" && (
+              {errors.Password?.type === 'pattern' && (
                 <p className="text-red-600">
                   Password must be uppercase, lowercase & number
                 </p>
@@ -224,12 +267,12 @@ export default function Register() {
             </div>
             <div>
               <input
-                className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
+                className="w-full bg-transparent shadow-md shadow-slate-500 px-3 py-2 border rounded"
                 type="password"
                 placeholder="Confirm Password"
-                {...register("confirmPassword", { required: true })}
+                {...register('Confirm_Password', { required: true })}
               />
-              {errors.confirmPassword?.type === "required" && (
+              {errors.Confirm_Password?.type === 'required' && (
                 <p className="text-red-600">Confirm Password.</p>
               )}
               {errPass && (
@@ -237,46 +280,46 @@ export default function Register() {
               )}
             </div>
             <button
-              //   disabled={isLoading}
-              className="w-full py-2 font-semibold duration-200 border rounded shadow-md cursor-pointer shadow-slate-400 hover:shadow-lg hover:shadow-slate-200"
+              disabled={isLoading}
+              className="rounded w-full py-2 font-semibold shadow-md shadow-slate-400 border cursor-pointer duration-200 hover:shadow-lg hover:shadow-slate-200"
             >
               {isLoading ? (
-                <ImSpinner9 className="mx-auto text-2xl animate-spin" />
+                <ImSpinner9 className="animate-spin text-2xl mx-auto" />
               ) : (
-                "Sign up"
+                'Sign up'
               )}
             </button>
           </form>
           <p className="pt-3 text-slate-800 dark:text-slate-100">
-            Already have an account?{" "}
-            <Link to={"/login"} className="underline text-mClr">
+            Already have an account?{' '}
+            <Link to={'/login'} className="underline text-mClr">
               Login
             </Link>
           </p>
           <div>
-            <div className="relative flex items-center justify-center w-full h-5 my-5">
+            <div className="w-full relative h-5 my-5 flex items-center justify-center">
               <div className="h-[1px] w-full bg-white"></div>
-              <span className="absolute px-3 font-medium -translate-x-1/2 text-slate-100 bg-slate-800 left-1/2">
+              <span className="absolute px-3 font-medium text-slate-100 bg-slate-800 -translate-x-1/2 left-1/2">
                 or
               </span>
             </div>
-            <div className="flex flex-col w-full gap-2 lg:flex-row xl:gap-3 text-slate-900 dark:text-stone-100">
+            <div className="flex flex-col lg:flex-row gap-2 xl:gap-3 w-full text-slate-900 dark:text-stone-100">
               <button
                 disabled={isLoading}
                 onClick={() => socialLogin(googleLogin)}
-                className="flex items-center justify-center w-full gap-1 px-1 py-2 font-medium border rounded-md hover:shadow-lg shadow-indigo-900/20 border-mClr"
+                className="py-2 px-1 w-full font-medium border hover:shadow-lg shadow-indigo-900/20 rounded-md flex items-center justify-center gap-1 border-mClr"
               >
-                <span className="text-2xl ">
+                <span className=" text-2xl">
                   <FcGoogle />
                 </span>
                 Login With Google
               </button>
               <button
                 disabled={isLoading}
-                onClick={() => socialLogin(githubLogin)}
-                className="flex items-center justify-center w-full gap-1 px-1 py-2 font-medium border rounded-md hover:shadow-lg shadow-blue-500/20 border-mClr"
+                onClick={() => socialLogin(gitHubLogin)}
+                className="py-2 px-1 w-full font-medium border hover:shadow-lg shadow-blue-500/20 rounded-md  flex items-center justify-center gap-1 border-mClr"
               >
-                <span className="text-2xl text-mClr dark:text-white">
+                <span className="text-mClr dark:text-white text-2xl">
                   <FaGithub />
                 </span>
                 Login With GitHub

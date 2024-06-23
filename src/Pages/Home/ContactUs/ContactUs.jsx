@@ -101,7 +101,7 @@ const ContactUs = () => {
                     <span className="inline-block mx-auto text-6xl">
                       <MdWhatsapp />
                     </span>
-                    <p className="text-white">+880 1719-199967</p>
+                    <p className="text-white">+880 124534643</p>
                   </div>
                 </div>
               </div>
@@ -128,7 +128,7 @@ const ContactUs = () => {
                     <span className="inline-block mx-auto text-6xl">
                       <SiGmail />
                     </span>
-                    <p className="text-white">ataullahm100 @gmail.com</p>
+                    <p className="text-white">farhanmazumder0@gmail.com</p>
                   </div>
                 </div>
               </div>

@@ -11,14 +11,14 @@ const ContactForm = () => {
             Send Us An Email
           </h1>
           <p data-aos="fade-down" className="pt-8 text-justify text-slate-400">
-            {`Need help? Contact us at email@example.com or call (+880) 1719 199967.
+            {`Need help? Contact us at email@example.com or call +880 124534643.
           We're here to assist you with your orders and inquiries.`}
           </p>
           <h1 className="pt-6 pb-2 text-2xl font-bold">Our Address</h1>
           <p className="text-slate-400">Mirpur 10, Dhaka, Bangladesh</p>
           <h1 className="pt-6 pb-2 text-2xl font-bold">Call Now</h1>
-          <p className="text-slate-400">+8800 1719 199967</p>
-          <p className="text-slate-400">+8800 1326 142663</p>
+          <p className="text-slate-400">+880 124534643</p>
+          <p className="text-slate-400">+880 124534643</p>
         </div>
         <div data-aos="fade-left" className="w-full md:w-3/5">
           <form
