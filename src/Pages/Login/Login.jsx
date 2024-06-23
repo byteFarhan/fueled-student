@@ -7,9 +7,11 @@ import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 export default function Login() {
-  const { isLoading, signInUser } = useAuth();
+  const axiosPublic = useAxiosPublic();
+  const { isLoading, signInUser, githubLogin, googleLogin } = useAuth();
   const [eye, setEye] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -36,7 +38,33 @@ export default function Login() {
   };
 
   // all Social Login
-  // const socialLogin = (socialLogin) => {};
+  const socialLogin = (socialLogin) => {
+    socialLogin()
+      .then((result) => {
+        navigate(location?.state ? location?.state : "/");
+        toast.success("Login Successfull.");
+        const user = result.user;
+        const name = user?.displayName;
+        const email = user?.email;
+        const role = "User";
+        const photo = user?.photoURL;
+        const badge = "Bronze";
+
+        const userInfo = {
+          name,
+          email,
+          photo,
+          role,
+          badge,
+        };
+
+        axiosPublic.post("/users", userInfo).then(() => {});
+        //send user info to the db end ==========================
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+      });
+  };
 
   return (
     <div className="min-h-screen text-white bg-slate-800">
@@ -115,7 +143,7 @@ export default function Login() {
             <div className="flex flex-col w-full gap-2 lg:flex-row xl:gap-3 text-slate-900 dark:text-stone-100">
               <button
                 disabled={isLoading}
-                // onClick={() => socialLogin(googleLogin)}
+                onClick={() => socialLogin(googleLogin)}
                 className="flex items-center justify-center w-full gap-1 px-1 py-2 font-medium border rounded-md hover:shadow-md hover:shadow-slate-200 border-mClr"
               >
                 <span className="text-2xl ">
@@ -125,7 +153,7 @@ export default function Login() {
               </button>
               <button
                 disabled={isLoading}
-                // onClick={() => socialLogin(gitHubLogin)}
+                onClick={() => socialLogin(githubLogin)}
                 className="flex items-center justify-center w-full gap-1 px-1 py-2 font-medium border rounded-md hover:shadow-md hover:shadow-slate-200 border-mClr"
               >
                 <span className="text-2xl text-mClr dark:text-white">

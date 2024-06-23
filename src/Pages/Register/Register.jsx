@@ -13,7 +13,14 @@ import auth from "../../firebase/firebase.config";
 
 export default function Register() {
   const isLoading = false;
-  const { createUser, updateUserProfile, setUser, user } = useAuth();
+  const {
+    createUser,
+    updateUserProfile,
+    setUser,
+    user,
+    githubLogin,
+    googleLogin,
+  } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -78,10 +85,39 @@ export default function Register() {
             .catch(() => {});
         }
       })
-      .catch(() => toast.error("User already exist!"));
+      .catch((error) => toast.error(error?.message));
 
     reset();
   };
+
+  const socialLogin = (socialLogin) => {
+    socialLogin()
+      .then((result) => {
+        navigate(location?.state ? location?.state : "/");
+        toast.success("Login Successfull.");
+        const user = result.user;
+        const name = user?.displayName;
+        const email = user?.email;
+        const role = "User";
+        const photo = user?.photoURL;
+        const badge = "Bronze";
+
+        const userInfo = {
+          name,
+          email,
+          photo,
+          role,
+          badge,
+        };
+
+        axiosPublic.post("/users", userInfo).then(() => {});
+        //send user info to the db end ==========================
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+      });
+  };
+
   return (
     <div className="min-h-screen text-white bg-slate-800">
       <div className="w-10/12 py-10 mx-auto">
@@ -227,7 +263,7 @@ export default function Register() {
             <div className="flex flex-col w-full gap-2 lg:flex-row xl:gap-3 text-slate-900 dark:text-stone-100">
               <button
                 disabled={isLoading}
-                // onClick={() => socialLogin(googleLogin)}
+                onClick={() => socialLogin(googleLogin)}
                 className="flex items-center justify-center w-full gap-1 px-1 py-2 font-medium border rounded-md hover:shadow-lg shadow-indigo-900/20 border-mClr"
               >
                 <span className="text-2xl ">
@@ -237,7 +273,7 @@ export default function Register() {
               </button>
               <button
                 disabled={isLoading}
-                // onClick={() => socialLogin(gitHubLogin)}
+                onClick={() => socialLogin(githubLogin)}
                 className="flex items-center justify-center w-full gap-1 px-1 py-2 font-medium border rounded-md hover:shadow-lg shadow-blue-500/20 border-mClr"
               >
                 <span className="text-2xl text-mClr dark:text-white">
