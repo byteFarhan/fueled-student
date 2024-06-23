@@ -20,10 +20,10 @@ import AddMeals from "../pages/Dashboard/DashboardComponent/AddMeals";
 import Payment from "../pages/Payment/Payment";
 import AllPayments from "../pages/Dashboard/DashboardComponent/AllPayments";
 import PrivetDashboard from "./PrivetDashboard";
-import HomePage from "../Pages/Home/HomePage/HomePage";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Login from "../pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import Home from "../Pages/Home/Home";
 // import PrivetRoute from './PrivetRoute';
 
 const router = createBrowserRouter([
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />,
+        element: <Home />,
       },
       {
         path: "/checkout/:id",
