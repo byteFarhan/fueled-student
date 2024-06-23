@@ -5,6 +5,8 @@ import { IoMdArrowUp } from "react-icons/io";
 import { useEffect, useState } from "react";
 import { Toaster } from "react-hot-toast";
 import { ImSpinner3 } from "react-icons/im";
+import "react-loading-skeleton/dist/skeleton.css";
+// import "@smastrom/react-rating/style.css";
 
 const MainLayout = () => {
   const { isLoading = false } = {};
@@ -34,7 +36,7 @@ const MainLayout = () => {
 
   if (isLoading) {
     return (
-      <div className="h-screen flex items-center justify-center w-full">
+      <div className="flex items-center justify-center w-full h-screen">
         <div className="text-slate-800 m-14 text-center w-[60px] h-[60px] flex items-center justify-center text-8xl mx-auto">
           <ImSpinner3 className="animate-spin" />
         </div>
@@ -43,7 +45,7 @@ const MainLayout = () => {
   }
   return (
     <>
-      <div className="bg-slate-800 min-h-screen text-slate-100 overflow-x-hidden">
+      <div className="min-h-screen overflow-x-hidden bg-slate-800 text-slate-100">
         <Toaster />
         <div
           className={

@@ -1,0 +1,340 @@
+[
+  {
+    "title": "Chocolate Chip Cookies",
+    "images": "https://i.ibb.co/YWLkc4q/Chocolate-Chip-Cookies.jpg",
+    "category": "Lunch",
+    "ingredientsItems": [
+      "Flour",
+      " Butter",
+      " Sugar",
+      " Chocolate Chips",
+      " Eggs"
+    ],
+    "price": 4.99,
+    "rating": 4,
+    "description": "Treat yourself to a batch of freshly baked Chocolate Chip Cookies, perfect for dessert. Made with a perfect blend of flour, butter, and sugar, with plenty of chocolate chips. Crispy on the outside and chewy on the inside. A delicious and comforting treat that is great for any time of the day. Enjoy the warm, gooey goodness of homemade cookies!",
+    "currentTime": "June 08, 2024 07:58:42 PM",
+    "likes": 0,
+    "reviews": 1,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Salmon Teriyaki",
+    "images": "https://i.ibb.co/MsJ7xSv/Salmon-Teriyaki.jpg",
+    "category": "Dinner",
+    "ingredientsItems": [
+      "Salmon",
+      " Teriyaki Sauce",
+      " Sesame Seeds",
+      " Green Onions",
+      " Rice"
+    ],
+    "price": 12.99,
+    "rating": 4.5,
+    "description": "Delight in a flavorful Salmon Teriyaki, perfect for dinner. Made with tender salmon fillets, glazed with a rich teriyaki sauce. Garnished with sesame seeds and green onions, and served over a bed of steamed rice. A healthy and delicious meal that is easy to prepare. Great for a weeknight dinner or a special occasion. Enjoy a taste of Japan at home!",
+    "currentTime": "June 09, 2024 08:32:11 AM",
+    "likes": 10,
+    "reviews": 2,
+    "status": "Available",
+    "upcomingId": "666514304443afee79aef0cd",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Chicken Alfredo Pasta",
+    "images": "https://i.ibb.co/Zgz5yq1/Chicken-Alfredo-Pasta.jpg",
+    "category": "Dinner",
+    "ingredientsItems": [
+      "Chicken",
+      " Pasta",
+      " Alfredo Sauce",
+      " Parmesan Cheese",
+      " Parsley"
+    ],
+    "price": 11.23,
+    "rating": 4.5,
+    "description": "Savor the rich and creamy flavors of Chicken Alfredo Pasta, perfect for dinner. Made with tender chicken, al dente pasta, and a creamy Alfredo sauce. Topped with freshly grated Parmesan cheese and a sprinkle of parsley. A delicious and comforting meal that is easy to prepare. Great for a weeknight dinner or a special occasion. Enjoy a taste of Italy at home!",
+    "currentTime": "June 08, 2024 07:57:00 PM",
+    "likes": 0,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Avocado Toast",
+    "images": "https://i.ibb.co/R4LCTX9/Avocado-Toast.jpg",
+    "category": "Breakfast",
+    "ingredientsItems": ["Avocado ", " Bread", " Lemon", " Salt", " Papper"],
+    "price": 4.99,
+    "rating": 3.5,
+    "description": "Start your day with a healthy and delicious avocado toast. Made with ripe avocados and freshly toasted bread, this meal is both nutritious and satisfying. Add a squeeze of lemon juice and a sprinkle of salt and pepper to enhance the flavors. A perfect option for a quick breakfast or a light snack. It's a modern classic that everyone loves!",
+    "currentTime": "June 08, 2024 07:31:00 PM",
+    "likes": 0,
+    "reviews": 2,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Caprese Salad",
+    "images": "https://i.ibb.co/nzcY37N/Caprese-Salad.jpg",
+    "category": "Lunch",
+    "ingredientsItems": [
+      "Tomatoes",
+      " Mozzarella Cheese",
+      " Basil",
+      " Olive Oil",
+      " Balsamic Vinegar"
+    ],
+    "price": 8.99,
+    "rating": 3,
+    "description": "Indulge in the fresh and vibrant flavors of Caprese Salad, perfect for a light lunch. Made with juicy tomatoes, creamy mozzarella cheese, and fresh basil leaves. Drizzled with olive oil and balsamic vinegar for a touch of sweetness. A healthy and delicious meal that is easy to prepare. Great for on-the-go or a sit-down lunch. Enjoy a taste of Italy!",
+    "currentTime": "June 08, 2024 08:00:07 PM",
+    "likes": 10,
+    "reviews": 0,
+    "status": "Available",
+    "upcomingId": "666463ebc2865456a1e003af",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "BLT Sandwich",
+    "images": "https://i.ibb.co/YLfcw3v/BLT-Sandwich.jpg",
+    "category": "Lunch",
+    "ingredientsItems": [
+      "Bacon",
+      " Lettuce",
+      " Tomato",
+      " Bread",
+      " Mayonnaise"
+    ],
+    "price": 7.49,
+    "rating": 4,
+    "description": "Enjoy a classic BLT Sandwich, perfect for a quick and tasty lunch. Made with crispy bacon, fresh lettuce, and juicy tomatoes. Served on toasted bread with a spread of creamy mayonnaise. A simple yet delicious meal that is sure to satisfy. Great for on-the-go or a sit-down lunch. Enjoy the perfect combination of flavors and textures!",
+    "currentTime": "June 08, 2024 07:55:00 PM",
+    "likes": 10,
+    "reviews": 1,
+    "status": "Available",
+    "upcomingId": "666462b8c2865456a1e003ac",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Mango Smoothie Bowl",
+    "images": "https://i.ibb.co/DzjJXDP/Mango-Smoothie-Bowl.jpg",
+    "category": "Breakfast",
+    "ingredientsItems": [
+      "Mango",
+      " Banana",
+      " Greek Yogurt",
+      " Honey",
+      " Granola"
+    ],
+    "price": 6.99,
+    "rating": 4.5,
+    "description": "Kickstart your day with a vibrant Mango Smoothie Bowl, perfect for breakfast. Made with fresh mango, banana, and creamy Greek yogurt. Drizzled with honey and topped with crunchy granola. A nutritious and delicious meal that is packed with vitamins and minerals. Ideal for a quick and healthy breakfast. Enjoy a bowl of sunshine in every bite!",
+    "currentTime": "June 08, 2024 07:51:59 PM",
+    "likes": 1,
+    "reviews": 0,
+    "status": "Upcoming",
+    "upcomingId": "66646205c2865456a1e003aa",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Greek Salad",
+    "images": "https://i.ibb.co/PwDVckR/Greek-Salad.jpg",
+    "category": "Lunch",
+    "ingredientsItems": [
+      "Cucumber",
+      " Tomatoes",
+      " Feta Cheese",
+      " Olives",
+      " Red Onion"
+    ],
+    "price": 8.49,
+    "rating": 4,
+    "description": "Indulge in a refreshing Greek Salad, perfect for a light lunch. Made with crisp cucumbers, juicy tomatoes, and tangy feta cheese. Tossed with olives and thinly sliced red onions, and dressed with a simple vinaigrette. A healthy and flavorful meal that is easy to prepare. Great for on-the-go or a sit-down lunch. Enjoy a taste of the Mediterranean!",
+    "currentTime": "June 08, 2024 07:50:31 PM",
+    "likes": 3,
+    "reviews": 0,
+    "status": "Upcoming",
+    "upcomingId": "666461abc2865456a1e003a9",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Classic Pancakes",
+    "images": "https://i.ibb.co/NrCJYJG/Pancake-Delight.jpg",
+    "category": "Breakfast",
+    "ingredientsItems": ["Flour", " Milk", " Eggs", " Sugar", " Butter"],
+    "price": 5.99,
+    "rating": 3,
+    "description": "Enjoy a stack of fluffy, golden brown pancakes made with the finest ingredients. Perfectly paired with a drizzle of maple syrup, these pancakes are a breakfast classic. Serve with a side of fresh fruit and a dollop of whipped cream. Ideal for a cozy morning meal or a weekend brunch with family. Easy to make and delicious to eat!",
+    "currentTime": "June 08, 2024 07:27:40 PM",
+    "likes": 1,
+    "reviews": 1,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Grilled Cheese Sandwich",
+    "images": "https://i.ibb.co/qrBbKpP/Grilled-Cheese-Sandwich.jpg",
+    "category": "Lunch",
+    "ingredientsItems": [
+      "Bread",
+      " Cheddar Cheese",
+      " Butter",
+      " Tomato Soup",
+      " Garlic"
+    ],
+    "price": 6.99,
+    "rating": 4.49,
+    "description": "Relish in the simplicity and comfort of a Grilled Cheese Sandwich, paired perfectly with a bowl of tomato soup. Made with crispy, buttery bread and gooey, melted cheddar cheese. Ideal for a quick lunch or a comforting meal on a rainy day. Add a touch of garlic for extra flavor. A classic combination that is both nostalgic and satisfying. Enjoy the ultimate comfort food!",
+    "currentTime": "June 08, 2024 07:38:23 PM",
+    "likes": 0,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Chicken Caesar Salad",
+    "images": "https://i.ibb.co/MVjBgLK/Chicken-Caesar-Salad.jpg",
+    "category": "Breakfast",
+    "ingredientsItems": [
+      "Chicken Breast",
+      " Romaine Lettuce",
+      " Croutons",
+      " Caesar Dressing",
+      " Parmesan Cheese"
+    ],
+    "price": 9.99,
+    "rating": 4.5,
+    "description": "Indulge in a classic Chicken Caesar Salad, perfect for a light yet filling lunch. Made with grilled chicken breast, crisp romaine lettuce, and crunchy croutons. Topped with a rich Caesar dressing and shaved Parmesan cheese. A healthy and tasty option that is sure to satisfy. Great for on-the-go or a sit-down meal. Enjoy a balanced and flavorful lunch!",
+    "currentTime": "June 08, 2024 07:34:16 PM",
+    "likes": 0,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Beef Tacos",
+    "images": "https://i.ibb.co/WFjJVk6/Beef-Tacos.jpg",
+    "category": "Dinner",
+    "ingredientsItems": [
+      "Ground Beef",
+      " Taco Shells",
+      " Lettuce",
+      " Cheddar Cheese",
+      " Salsa"
+    ],
+    "price": 8.99,
+    "rating": 5,
+    "description": "Savor the bold flavors of Beef Tacos, a perfect meal for dinner. Made with seasoned ground beef, fresh lettuce, and shredded cheddar cheese. Topped with tangy salsa and served in crispy taco shells. A fun and tasty meal that is great for family dinners or gatherings with friends. Easy to customize with your favorite toppings. Enjoy a fiesta of flavors!",
+    "currentTime": "June 08, 2024 07:39:59 PM",
+    "likes": 0,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Vegetable Stir-Fry",
+    "images": "https://i.ibb.co/BtPZsqD/Vegetable-Stir-Fry.jpg",
+    "category": "Dinner",
+    "ingredientsItems": [
+      "Broccoli",
+      " Carrots",
+      " Bell Peppers",
+      " Soy Sauce",
+      " Ginger"
+    ],
+    "price": 7.49,
+    "rating": 3,
+    "description": "Enjoy a healthy and vibrant Vegetable Stir-Fry, perfect for dinner. Made with fresh broccoli, carrots, and bell peppers, all stir-fried to perfection. Tossed in a savory soy sauce with a hint of ginger for added flavor. A nutritious and delicious meal that is quick to prepare. Ideal for busy weeknights or a light and healthy dinner. Enjoy a burst of flavors and colors!",
+    "currentTime": "June 08, 2024 07:41:38 PM",
+    "likes": 0,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Mango Smoothie Bowl",
+    "images": "https://i.ibb.co/DzjJXDP/Mango-Smoothie-Bowl.jpg",
+    "category": "Breakfast",
+    "ingredientsItems": [
+      "Mango",
+      " Banana",
+      " Greek Yogurt",
+      " Honey",
+      " Granola"
+    ],
+    "price": 6.99,
+    "rating": 4.5,
+    "description": "Kickstart your day with a vibrant Mango Smoothie Bowl, perfect for breakfast. Made with fresh mango, banana, and creamy Greek yogurt. Drizzled with honey and topped with crunchy granola. A nutritious and delicious meal that is packed with vitamins and minerals. Ideal for a quick and healthy breakfast. Enjoy a bowl of sunshine in every bite!",
+    "currentTime": "June 08, 2024 07:51:59 PM",
+    "likes": 2,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  },
+  {
+    "title": "Mango Smoothie Bowl",
+    "images": "https://i.ibb.co/DzjJXDP/Mango-Smoothie-Bowl.jpg",
+    "category": "Breakfast",
+    "ingredientsItems": [
+      "Mango",
+      " Banana",
+      " Greek Yogurt",
+      " Honey",
+      " Granola"
+    ],
+    "price": 6.99,
+    "rating": 4.5,
+    "description": "Kickstart your day with a vibrant Mango Smoothie Bowl, perfect for breakfast. Made with fresh mango, banana, and creamy Greek yogurt. Drizzled with honey and topped with crunchy granola. A nutritious and delicious meal that is packed with vitamins and minerals. Ideal for a quick and healthy breakfast. Enjoy a bowl of sunshine in every bite!",
+    "currentTime": "June 08, 2024 07:51:59 PM",
+    "likes": 2,
+    "reviews": 0,
+    "status": "Available",
+    "creator": {
+      "email": "admin@gmail.com",
+      "name": "Artuk Bey"
+    }
+  }
+]
