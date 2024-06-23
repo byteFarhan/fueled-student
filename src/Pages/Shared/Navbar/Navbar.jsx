@@ -5,9 +5,13 @@ import { ImSpinner9 } from "react-icons/im";
 
 import { IoNotifications } from "react-icons/io5";
 import ProfileMenu from "./ProfileMenu/ProfileMenu";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 const Navbar = () => {
   const [menu, setMenu] = useState(false);
-  const { user = true, isLoading = false } = {};
+
+  const { user, isLoading } = useAuth();
+
   // console.log(userDta);
   const isAdmin = false;
   // console.log(isAdmin);

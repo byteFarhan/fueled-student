@@ -3,14 +3,18 @@ import { GoPlus } from "react-icons/go";
 import { LuLogOut } from "react-icons/lu";
 import Swal from "sweetalert2";
 import { CgProfile } from "react-icons/cg";
+import useAuth from "../../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const ProfileMenu = () => {
-  const { user = true } = {};
-  const logout = () => {
-    console.log("clicked");
+  const { user, logOut } = useAuth();
+  const handleLogout = () => {
+    logOut().then(() => {
+      toast.success("Logout successfull.");
+    });
   };
   return (
-    <div className="group relative cursor-pointer">
+    <div className="relative cursor-pointer group">
       <div className="flex items-center justify-between w-full text-center text-white duration-200">
         <div className="relative group">
           <img
@@ -27,15 +31,15 @@ const ProfileMenu = () => {
           </span>
         </div>
       </div>
-      <div className="invisible right-0 absolute z-50 flex min-w-48 flex-col bg-gray-500 shadow-4xl group-hover:visible text-center">
+      <div className="absolute right-0 z-50 flex flex-col invisible text-center bg-gray-500 min-w-48 shadow-4xl group-hover:visible">
         <div>
-          <h1 className="py-2 text-xl font-semibold bg-slate-800 text-white px-3">
+          <h1 className="px-3 py-2 text-xl font-semibold text-white bg-slate-800">
             {user.displayName ? user.displayName : "User Name"}
           </h1>
         </div>
         <NavLink
           to={"/dashboard"}
-          className="font-semibold border-b py-3 tracking-widest flex items-center justify-center gap-1 hover:shadow hover:shadow-slate-200"
+          className="flex items-center justify-center gap-1 py-3 font-semibold tracking-widest border-b hover:shadow hover:shadow-slate-200"
         >
           <span className="text-2xl">
             <CgProfile />
@@ -43,7 +47,7 @@ const ProfileMenu = () => {
           My Dashboard
         </NavLink>
         <button
-          onClick={logout}
+          onClick={handleLogout}
           className="hover:bg-[#c52323] font-semibold border-b bg-sClr py-3 tracking-widest flex items-center justify-center gap-3 hover:shadow hover:shadow-slate-200"
         >
           <span className="text-2xl">

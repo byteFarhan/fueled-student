@@ -2,115 +2,86 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import Swal from "sweetalert2";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
-// import Loding from "../Loding/Loding";
-// import useAuth from "../../Hooks/useAuth";
-// import { useMutation } from "@tanstack/react-query";
-// import useAxiosPub from "../../Hooks/useAxiosPub";
-// import useAxiosSec from '../../Hooks/useAxiosSec';
+import toast from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAuth from "../../hooks/useAuth";
+import { imageUpload } from "../Shared/utils/imageUpload";
+import auth from "../../firebase/firebase.config";
 
 export default function Register() {
   const isLoading = false;
-  //   const axioss = useAxiosPub();
-  // const axiosss = useAxiosSec();
+  const { createUser, updateUserProfile, setUser, user } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const axiosPublic = useAxiosPublic();
+
   const [errPass, setErrPass] = useState(false);
   const [imgErr, setImgErr] = useState(null);
   const [eye, setEye] = useState(false);
-  const naviget = useNavigate();
 
-  //   const { mutateAsync } = useMutation({
-  //     mutationFn: async ({ users }) => {
-  //       const { data } = await axioss.post("/new-user", users);
-  //       console.log(data);
-  //     },
-  //   });
-  // const { mutateAsync: mutateAsyncJwt } = useMutation({
-  //   mutationFn: async ({ userEmail }) => {
-  //     const { data } = await axiosss.post('/jwt', userEmail);
-  //     console.log(data);
-  //   },
-  // });
-
-  //   const {
-  //     emlPassRegister,
-  //     gitHubLogin,
-  //     googleLogin,
-  //     userDta,
-  //     profileUpdate,
-  //     setLoading,
-  //     isLoading,
-  //   } = useAuth();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = async (data) => {
+
+  const formSubmit = async (data) => {
+    console.log(data);
     setImgErr(false);
     setErrPass(false);
-    if (data.Password !== data.Confirm_Password) {
+    const { name, photo, email, password, confirmPassword } = data;
+    if (password !== confirmPassword) {
       setErrPass(true);
       return;
     }
-    const photo = data.photo[0];
     if (photo.name === "" || photo.size === 0) {
       setImgErr(true);
       return;
     }
-    const name = data.Name;
-    const email = data.Email;
-    const password = data.Password;
 
-    const fromImg = new FormData();
-    fromImg.append("image", photo);
+    const imageFile = photo[0];
 
-    // reset();
+    const image = await imageUpload(imageFile);
+    console.log(image);
+    createUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        toast.success("Account created! Welcome!");
+        navigate(location?.state ? location?.state : "/");
+        //update profile
+        if (image) {
+          updateUserProfile(auth.currentUser, {
+            displayName: name,
+            photoURL: image,
+          })
+            .then(() => {
+              setUser({ ...user, displayName: name, photoURL: image });
+              //send user info to the db start ==========================
+              const userInfo = {
+                name: user?.displayName,
+                email: user?.email,
+                role: "User",
+                photo: user?.photoURL,
+                badge: "Bronze",
+              };
+              // console.log(userInfo);
+              axiosPublic.post("/users", userInfo).then(() => {
+                // console.log('from auth',res);
+              });
+              //send user info to the db end ==========================
+            })
+            .catch(() => {});
+        }
+      })
+      .catch(() => toast.error("User already exist!"));
+
+    reset();
   };
-  // console.log(errors);
-
-  // all Social Login
-  //   const socialLogin = (socialLogin) => {
-  //     socialLogin()
-  //       .then(async (result) => {
-  //         const user = result.user;
-
-  //         const userName = user.displayName;
-  //         const userEmail = user.email;
-  //         const userPhoto = user.photoURL;
-  //         const role = "user";
-  //         const badge = "Bronze";
-  //         const users = {
-  //           userName,
-  //           userEmail,
-  //           userPhoto,
-  //           role,
-  //           badge,
-  //         };
-  //         await mutateAsync({ users });
-
-  //         naviget(location?.state ? location.state : "/");
-  //         console.log(user);
-  //         Swal.fire({
-  //           title: "Good job!",
-  //           text: "Your account has been successfully logged in.",
-  //           icon: "success",
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         const errorMessage = error.message;
-  //         setLoading(false);
-  //         console.log(errorMessage);
-  //         Swal.fire({
-  //           title: "Oops...!",
-  //           text: `Sorry, your account could not be Login ! "${errorMessage.message}"`,
-  //           icon: "error",
-  //         });
-  //       });
-  //   };
-
   return (
     <div className="min-h-screen text-white bg-slate-800">
       <div className="w-10/12 py-10 mx-auto">
@@ -119,7 +90,7 @@ export default function Register() {
         </h1>
         <div className="w-full md:w-[500px] mx-auto">
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={handleSubmit(formSubmit)}
             className="flex flex-col gap-5"
           >
             <div>
@@ -127,10 +98,10 @@ export default function Register() {
                 className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
                 type="text"
                 placeholder="Name"
-                {...register("Name", { required: true, maxLength: 20 })}
+                {...register("name", { required: true, maxLength: 20 })}
               />
 
-              {errors.Name && (
+              {errors.name && (
                 <span className="text-red-600">Please Input Your Name</span>
               )}
             </div>
@@ -163,15 +134,15 @@ export default function Register() {
                 className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
                 type="email"
                 placeholder="Email"
-                {...register("Email", {
+                {...register("email", {
                   required: true,
                   pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                 })}
               />
-              {errors.Email?.type === "required" && (
+              {errors.email?.type === "required" && (
                 <p className="text-red-600">Please Input Your Email.</p>
               )}
-              {errors.Email?.type === "pattern" && (
+              {errors.email?.type === "pattern" && (
                 <p className="text-red-600">Invalid Email</p>
               )}
             </div>
@@ -192,7 +163,7 @@ export default function Register() {
                   className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
                   type={eye ? "text" : "password"}
                   placeholder="Password"
-                  {...register("Password", {
+                  {...register("password", {
                     required: true,
                     max: 20,
                     min: 6,
@@ -200,16 +171,16 @@ export default function Register() {
                   })}
                 />
               </div>
-              {errors.Password?.type === "required" && (
+              {errors.password?.type === "required" && (
                 <p className="text-red-600">Please Input a Password.</p>
               )}
-              {errors.Password?.type === "min" && (
+              {errors.password?.type === "min" && (
                 <p className="text-red-600">Password must be 6 word</p>
               )}
-              {errors.Password?.type === "max" && (
+              {errors.password?.type === "max" && (
                 <p className="text-red-600">Password must be less 20 word</p>
               )}
-              {errors.Password?.type === "pattern" && (
+              {errors.password?.type === "pattern" && (
                 <p className="text-red-600">
                   Password must be uppercase, lowercase & number
                 </p>
@@ -220,9 +191,9 @@ export default function Register() {
                 className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
                 type="password"
                 placeholder="Confirm Password"
-                {...register("Confirm_Password", { required: true })}
+                {...register("confirmPassword", { required: true })}
               />
-              {errors.Confirm_Password?.type === "required" && (
+              {errors.confirmPassword?.type === "required" && (
                 <p className="text-red-600">Confirm Password.</p>
               )}
               {errPass && (
