@@ -1,43 +1,42 @@
-import { createBrowserRouter } from "react-router-dom";
-// import About from "../pages/About/About";
-
-import Root from "../root/Root";
-import Details from "../pages/MealsDetails/Details";
-import Meals from "../pages/Meals/Meals";
-import UpcomingMeals from "../pages/UpcomingMeals/UpcomingMeals";
-import PrivetRoute from "./PrivetRoute";
-import Dashboard from "../pages/Dashboard/Dashboard";
-import DashboardHome from "../pages/Dashboard/DashboardComponent/DashboardHome";
-import RequestedMeals from "../pages/Dashboard/DashboardComponent/RequestedMeals";
-import MyReviews from "../pages/Dashboard/DashboardComponent/MyReviews";
-import PaymentHistory from "../pages/Dashboard/DashboardComponent/PaymentHistory";
-import ManageUsers from "../pages/Dashboard/DashboardComponent/ManageUsers";
-import AllMeals from "../pages/Dashboard/DashboardComponent/AllMeals";
-import UpcomingMealsDsb from "../pages/Dashboard/DashboardComponent/UpcomingMealsDsb";
-import ServeMeals from "../pages/Dashboard/DashboardComponent/ServeMeals";
-import AllReviews from "../pages/Dashboard/DashboardComponent/AllReviews";
-import AddMeals from "../pages/Dashboard/DashboardComponent/AddMeals";
-import Payment from "../pages/Payment/Payment";
-import AllPayments from "../pages/Dashboard/DashboardComponent/AllPayments";
-import PrivetDashboard from "./PrivetDashboard";
-import ErrorPage from "../Pages/ErrorPage/ErrorPage";
-import Login from "../pages/Login/Login";
-import Register from "../Pages/Register/Register";
-import Home from "../Pages/Home/Home";
+import { createBrowserRouter } from 'react-router-dom';
+import Home from '../pages/Home/Home';
+import About from '../pages/About/About';
+import Login from '../pages/Login/Login';
+import Register from '../pages/Register/Register';
+import Root from '../root/Root';
+import Details from '../pages/MealsDetails/Details';
+import Meals from '../pages/Meals/Meals';
+import UpcomingMeals from '../pages/UpcomingMeals/UpcomingMeals';
+import Error from '../pages/Error/Error';
+import PrivetRoute from './PrivetRoute';
+import Dashboard from '../pages/Dashboard/Dashboard';
+import DashboardHome from '../pages/Dashboard/DashboardComponent/DashboardHome';
+import RequestedMeals from '../pages/Dashboard/DashboardComponent/RequestedMeals';
+import MyReviews from '../pages/Dashboard/DashboardComponent/MyReviews';
+import PaymentHistory from '../pages/Dashboard/DashboardComponent/PaymentHistory';
+import ManageUsers from '../pages/Dashboard/DashboardComponent/ManageUsers';
+import AllMeals from '../pages/Dashboard/DashboardComponent/AllMeals';
+import UpcomingMealsDsb from '../pages/Dashboard/DashboardComponent/UpcomingMealsDsb';
+import ServeMeals from '../pages/Dashboard/DashboardComponent/ServeMeals';
+import AllReviews from '../pages/Dashboard/DashboardComponent/AllReviews';
+import AddMeals from '../pages/Dashboard/DashboardComponent/AddMeals';
+import Payment from '../pages/Payment/Payment';
+import AllPayments from '../pages/Dashboard/DashboardComponent/AllPayments';
+import PrivetDashboard from './PrivetDashboard';
 // import PrivetRoute from './PrivetRoute';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Root />,
-    errorElement: <ErrorPage />,
+    errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <Home />,
       },
       {
-        path: "/checkout/:id",
+        path: '/checkout/:id',
         element: (
           <PrivetRoute>
             <Payment />
@@ -45,25 +44,25 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/meal/:id",
+        path: '/meal/:id',
         element: <Details />,
       },
       {
-        path: "/meals",
+        path: '/meals',
         element: <Meals />,
       },
       {
-        path: "/upcoming-meals",
+        path: '/upcoming-meals',
         element: <UpcomingMeals />,
       },
-      // {
-      //   path: "/about",
-      //   element: <About />,
-      // },
+      {
+        path: '/about',
+        element: <About />,
+      },
     ],
   },
   {
-    path: "/dashboard",
+    path: '/dashboard',
     element: (
       <PrivetRoute>
         <Dashboard />
@@ -71,11 +70,11 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard",
+        path: '/dashboard',
         element: <DashboardHome />,
       },
       {
-        path: "/dashboard/Manage-Users",
+        path: '/dashboard/Manage-Users',
         element: (
           <PrivetDashboard>
             <ManageUsers />
@@ -83,7 +82,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/All-Meals",
+        path: '/dashboard/All-Meals',
         element: (
           <PrivetDashboard>
             <AllMeals />
@@ -91,7 +90,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/Upcoming-Meals",
+        path: '/dashboard/Upcoming-Meals',
         element: (
           <PrivetDashboard>
             <UpcomingMealsDsb />
@@ -99,7 +98,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/all-payments",
+        path: '/dashboard/all-payments',
         element: (
           <PrivetDashboard>
             <AllPayments />
@@ -107,7 +106,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/Serve-Meals",
+        path: '/dashboard/Serve-Meals',
         element: (
           <PrivetDashboard>
             <ServeMeals />
@@ -115,7 +114,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/All-Reviews",
+        path: '/dashboard/All-Reviews',
         element: (
           <PrivetDashboard>
             <AllReviews />
@@ -123,7 +122,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/Add-Meal",
+        path: '/dashboard/Add-Meal',
         element: (
           <PrivetDashboard>
             <AddMeals />
@@ -131,25 +130,25 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/dashboard/Requested-Mealss",
+        path: '/dashboard/Requested-Mealss',
         element: <RequestedMeals />,
       },
       {
-        path: "/dashboard/My-Reviews",
+        path: '/dashboard/My-Reviews',
         element: <MyReviews />,
       },
       {
-        path: "/dashboard/Payment-History",
+        path: '/dashboard/Payment-History',
         element: <PaymentHistory />,
       },
     ],
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
   {
-    path: "/register",
+    path: '/register',
     element: <Register />,
   },
 ]);
