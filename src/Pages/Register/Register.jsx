@@ -31,7 +31,7 @@ export default function Register() {
   } = useForm();
 
   const formSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     setImgErr(false);
     setErrPass(false);
     const { name, photo, email, password, confirmPassword } = data;
@@ -47,7 +47,7 @@ export default function Register() {
     const imageFile = photo[0];
 
     const image = await imageUpload(imageFile);
-    console.log(image);
+    // console.log(image);
     createUser(email, password)
       .then((result) => {
         const user = result.user;

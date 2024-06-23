@@ -5,13 +5,15 @@ import Swal from "sweetalert2";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ImSpinner9 } from "react-icons/im";
 import { FcGoogle } from "react-icons/fc";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 export default function Login() {
-  const isLoading = false;
+  const { isLoading, signInUser } = useAuth();
   const [eye, setEye] = useState(false);
-  const naviget = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
 
   const {
     register,
@@ -20,13 +22,21 @@ export default function Login() {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const email = data.Email;
-    const password = data.Password;
+    const { email, password } = data;
+
+    signInUser(email, password)
+      .then(() => {
+        toast.success("Login successfull! Welcome back!");
+        navigate(location?.state ? location?.state : "/");
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+      });
+    reset();
   };
-  // console.log(errors);
 
   // all Social Login
-  const socialLogin = (socialLogin) => {};
+  // const socialLogin = (socialLogin) => {};
 
   return (
     <div className="min-h-screen text-white bg-slate-800">
@@ -44,16 +54,12 @@ export default function Login() {
                 className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
                 type="email"
                 placeholder="Email"
-                {...register("Email", {
+                {...register("email", {
                   required: true,
-                  pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i,
                 })}
               />
-              {errors.Email?.type === "required" && (
+              {errors.email?.type === "required" && (
                 <p className="text-red-600">Please Input Your Email.</p>
-              )}
-              {errors.Email?.type === "pattern" && (
-                <p className="text-red-600">Invalid Email</p>
               )}
             </div>
             <div>
@@ -73,27 +79,13 @@ export default function Login() {
                   className="w-full px-3 py-2 bg-transparent border rounded shadow-md shadow-slate-500"
                   type={eye ? "text" : "password"}
                   placeholder="Password"
-                  {...register("Password", {
+                  {...register("password", {
                     required: true,
-                    max: 20,
-                    min: 6,
-                    pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
                   })}
                 />
               </div>
-              {errors.Password?.type === "required" && (
+              {errors.password?.type === "required" && (
                 <p className="text-red-600">Please Input a Password.</p>
-              )}
-              {errors.Password?.type === "min" && (
-                <p className="text-red-600">Password must be 6 word</p>
-              )}
-              {errors.Password?.type === "max" && (
-                <p className="text-red-600">Password must be less 20 word</p>
-              )}
-              {errors.Password?.type === "pattern" && (
-                <p className="text-red-600">
-                  Password must be uppercase, lowercase & number
-                </p>
               )}
             </div>
             <button
