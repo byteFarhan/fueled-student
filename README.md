@@ -35,3 +35,26 @@ This project aims to develop a Hostel Management system for a university using t
 
 - Email: admin@gmail.com
 - Password: #Admin1
+
+## Installation
+
+1. Clone the repository:
+
+```
+git clone https://github.com/byteFarhan/fueled-student.git
+```
+
+2. Navigate to the project directory:
+   ```
+   cd fueled-student
+   ```
+3. Install dependencies:
+   ```
+   npm install
+   ```
+4. Configure environment variables (e.g., Firebase URI, Stripe API keys) in a `.env` file.
+5. Start the development server:
+
+```
+npm run dev
+```
